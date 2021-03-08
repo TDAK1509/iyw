@@ -7,8 +7,8 @@
 <script>
 import Card from "./Card.vue";
 export default {
-  components: { Card },
   name: "Home",
+  components: { Card },
 };
 </script>
 
