@@ -5,7 +5,6 @@
       <router-view></router-view>
     </div>
   </div>
-
   <Footer />
 </template>
 
@@ -26,4 +25,9 @@ export default {
 @import url("assets/css/grid.css");
 @import url("assets/css/base.css");
 @import url("assets/css/reponsive.css");
+.container {
+  background-color: var(--background-color);
+  margin-top: calc(var(--nav-height) + var(--header-search-height) + 20px);
+  margin-bottom: 2rem;
+}
 </style>

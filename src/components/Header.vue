@@ -117,9 +117,9 @@
       </nav>
       <div class="header__search">
         <div class="search__logo hide-on-mobile hide-on-tablet">
-          <a href="">
+          <router-link to="/">
             <img src="../assets/logo.png" alt="logo" />
-          </a>
+          </router-link>
         </div>
         <div class="header-search__text">
           <input

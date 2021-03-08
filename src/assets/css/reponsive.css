@@ -15,7 +15,7 @@
         width: 644px;
     }
     .hide-on-tablet {
-        display: none;
+        display: none !important;
     }
     .search__cart-icon--acount {
         display: block;
@@ -37,7 +37,7 @@
         --footer-height: 4rem;
     }
     .hide-on-mobile {
-        display: none;
+        display: none !important;
     }
     .header-search__text {
         padding: 10px 0 10px 5px;
