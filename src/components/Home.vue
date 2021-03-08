@@ -6,9 +6,19 @@
 
 <script>
 import Card from "./Card.vue";
+import { get } from "../base/api";
+const getApi = () => {
+  get("posts").then((data) => {
+    alert(data);
+  });
+};
+
 export default {
   name: "Home",
   components: { Card },
+  created() {
+    getApi();
+  },
 };
 </script>
 
