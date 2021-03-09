@@ -1,11 +1,11 @@
-const baseApi = 'https://www.datnikon.com/api/';
+const baseApi = 'http://localhost:5555/api/v1/';
 import constants from '../base/constants';
 export function get(url, params = {}) {
     return new Promise((resolve, reject) => {
         fetch(`${baseApi}${url}`, { headers: params })
             .then(response => response.json())
             .then(data => {
-                if (data.status != 200) {
+                if (data.status != 'success') {
                     throw Error(data.message);
                 }
                 resolve(JSON.stringify(data.data));
@@ -24,7 +24,7 @@ export function post(url, params) {
         fetch(`${baseApi}${url}`, { method: 'POST', body: params })
             .then(response => response.json())
             .then(data => {
-                if (data.status != 200) {
+                if (data.status != 'success') {
                     throw Error(data.message);
                 }
                 resolve(data);

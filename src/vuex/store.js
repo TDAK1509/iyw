@@ -3,12 +3,17 @@ import { createStore } from 'vuex';
 const store = createStore({
   state() {
     return {
-      orders: []
+      orders: [],
+      prducts: []
     }
   },
   mutations: {
-    increment(state) {
-      state.orders = []
+    ADD_ORDER(state, payload) {
+
+      state.orders.push(payload);
+    },
+    SET_PRODUCT(state, payload) {
+      state.prducts = payload;
     }
   }
 })
