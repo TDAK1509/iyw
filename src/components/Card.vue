@@ -1,16 +1,17 @@
   
 <template>
-  <router-link to="/detail/aaaaa" class="col m-6 l-3 c-12" href="detail.html">
+  <router-link v-bind:to="`/detail/${product.slug}`" class="col m-6 l-3 c-12">
     <div class="card">
       <img
-        src="https://picsum.photos/400"
+        v-bind:src="product.images[0]"
         alt="Hình sản phẩm"
         class="card__img"
       />
-      <h3 class="card__title">Sản phẩm a</h3>
+      <h3 class="card__title">{{ product.name }}</h3>
       <div class="card__price">
-        <span class="card__price-orign">45.000</span>
-        <span class="card__price-now">35.0000</span>
+        <span class="card__price-now">{{
+          product.price.toLocaleString()
+        }}</span>
       </div>
     </div>
   </router-link>
@@ -19,6 +20,7 @@
 <script>
 export default {
   name: "Card",
+  props: ["product"],
 };
 </script>
 
@@ -28,16 +30,21 @@ export default {
   max-width: 100%;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   padding-bottom: 10px;
+  box-shadow: 0 0.0625rem 0.125rem 0 rgb(0 0 0 / 10%);
 }
 
 .card__img {
   max-width: 100%;
+  height: 200px;
 }
 
 .card__title {
   color: var(--text-color);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .card__price {
@@ -48,7 +55,7 @@ export default {
   opacity: 0.5;
   font-size: 1.5rem;
   margin-right: 10px;
-  color: #fff;
+  color: gray;
 }
 
 .card__price-now {

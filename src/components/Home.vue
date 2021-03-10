@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <Card />
+    <Card v-for="item in products" :key="item._id" :product="item" />
   </div>
 </template>
 
@@ -13,8 +13,13 @@ export default {
   components: { Card },
   created() {
     get("products").then((data) => {
-      this.$store.commit("SET_PRODUCT", data);
+      this.products = data;
     });
+  },
+  data() {
+    return {
+      products: [],
+    };
   },
 };
 </script>

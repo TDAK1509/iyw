@@ -1,4 +1,4 @@
-const baseApi = 'http://localhost:5555/api/v1/';
+const baseApi = 'http://localhost:5000/api/v1/';
 import constants from '../base/constants';
 export function get(url, params = {}) {
     return new Promise((resolve, reject) => {
@@ -8,7 +8,7 @@ export function get(url, params = {}) {
                 if (data.status != 'success') {
                     throw Error(data.message);
                 }
-                resolve(JSON.stringify(data.data));
+                resolve(data.data);
             }).catch(err => {
                 alert(err);
                 reject();
