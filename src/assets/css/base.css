@@ -4,7 +4,7 @@
     --text-color: #333;
     --text-color-second: rgba(0, 0, 0, 0.54);
     --background-color: #ffff;
-    --nav-height: 3rem;
+    --nav-height: 0;
     --header-search-height: 7rem;
     --footer-height: 5rem;
 }
@@ -50,9 +50,8 @@ img {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
-    /* background-color: bisque; */
     color: #961616;
-    animation: slide linear 1.5s;
+    animation: slide linear 5s;
     outline: none;
 }
 
@@ -75,12 +74,11 @@ input[type=] .btn--active {
 
 @keyframes slide {
     from {
-        opacity: 0;
-        transform: translateX(calc(100% + 50px));
+        scale: 0.8;
     }
+
     to {
-        opacity: 1;
-        transform: translateX(0);
+        scale: 1;
     }
 }
 
@@ -89,6 +87,7 @@ input[type=] .btn--active {
         opacity: 0;
         transform: translateX(calc(100% + 50px));
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -99,6 +98,7 @@ input[type=] .btn--active {
     from {
         transform: scale(0.7);
     }
+
     to {
         transform: scale(1);
     }

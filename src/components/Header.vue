@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="grid wide">
-      <nav class="header__navbar hide-on-mobile hide-on-tablet">
+      <!-- <nav class="header__navbar hide-on-mobile hide-on-tablet">
         <ul class="header__navbar-list header__navbar-list-left">
           <span class="header__navbar-label">Kết nối</span>
           <li class="header__navbar-item">
@@ -81,7 +81,7 @@
         </ul>
         <ul class="header__navbar-list header__navbar-list-right">
           <li class="header__navbar-item header__navbar-item--notification">
-            <img
+            <img alt=""
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAtElEQVRIie2TMQ6CQBBFZywkxiNoJ4fRA3AMiXekIbHRWmz0DrTPwiUBwpId2MIEX7LJNvP+32xGZDEAKVC5k4bOrQwZmYgc3MmsBb0ACZC75g0P4Awkc+V74I6fG7Cb03xM3g6xvwS4BMgb8ikBV0NA6fPoSEAtIpvAPrWqbq0BBMq/ItVBl2UPJvEPWCJAYViwPkXfF/sPTLvTnYRnq2kVOmd5wdpzjwNwAt7ACzhGD/hZPm3dRB7oj6XyAAAAAElFTkSuQmCC"
             />
             <div class="header__navbar-notification">
@@ -114,7 +114,7 @@
             </div>
           </li>
         </ul>
-      </nav>
+      </nav> -->
       <div class="header__search">
         <div class="search__logo hide-on-mobile hide-on-tablet">
           <router-link to="/">
@@ -122,21 +122,7 @@
           </router-link>
         </div>
         <div class="header-search__text">
-          <input
-            type="text"
-            class="header-search__text-input"
-            placeholder="Tìm sản phẩm"
-          />
-          <div class="header-search__history">
-            <span class="header-search__history-text">Lịch sử tìm kiếm</span>
-            <ul class="header-search__history-list-item">
-              <li class="header-search__history-item">Abc</li>
-              <li class="header-search__history-item">YAdd</li>
-              <li class="header-search__history-item">AAA</li>
-              <li class="header-search__history-item">AAAA</li>
-              <li class="header-search__history-item">AAAA</li>
-            </ul>
-          </div>
+          <SearchInput></SearchInput>
         </div>
         <div class="search__cart">
           <div class="search__cart-order">
@@ -239,8 +225,10 @@
 </template>
 
 <script>
+import SearchInput from "./Search.vue";
 export default {
   name: "Header",
+  components: { SearchInput },
 };
 </script>
 
@@ -364,7 +352,10 @@ export default {
 }
 
 /* Search */
-
+.header-search__text {
+  flex: 1;
+  position: relative;
+}
 .header__search {
   display: flex;
   align-items: center;
@@ -380,59 +371,6 @@ export default {
 .search__logo-img {
   max-width: 100%;
   height: auto;
-}
-
-.header-search__text {
-  flex: 1;
-  position: relative;
-}
-
-.header-search__text-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 1.6rem;
-}
-
-.header-search__text-input:focus {
-  outline: none;
-}
-
-.header-search__text-input:focus ~ div {
-  display: block;
-}
-
-.header-search__history {
-  position: absolute;
-  background-color: #fff;
-  width: 100%;
-  border-radius: 2px;
-  color: var(--text-color);
-  display: none;
-  animation: grow linear 0.5;
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
-}
-
-.header-search__history-text {
-  padding-left: 10px;
-  font-size: 1.6rem;
-}
-
-.header-search__history-list-item {
-  padding-left: 0;
-  font-size: 1.6rem;
-}
-
-.header-search__history-item {
-  padding-top: 2px;
-  cursor: pointer;
-  padding-left: 10px;
-}
-
-.header-search__history-item:hover {
-  background-color: #fff2ee;
 }
 
 .search__cart {

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div v-if="products" class="row">
     <Card v-for="item in products" :key="item._id" :product="item" />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      products: [],
+      products: null,
     };
   },
 };

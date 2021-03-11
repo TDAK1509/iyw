@@ -6,24 +6,33 @@
 /* Tablet */
 
 @media (min-width: 740px) and (max-width: 1023px) {
-     :root {
+    :root {
         --nav-height: 0rem;
         --header-search-height: 5rem;
         --footer-height: 4rem;
     }
+
     .wide {
         width: 644px;
     }
+
     .hide-on-tablet {
         display: none !important;
     }
+
     .search__cart-icon--acount {
         display: block;
     }
+
     .header-search__history {
         position: fixed;
         left: 0;
         right: 0;
+    }
+
+    .show-on-tablet {
+        display: block !important;
+        ;
     }
 }
 
@@ -31,27 +40,38 @@
 /* Mobile */
 
 @media (max-width: 739px) {
-     :root {
+    :root {
         --nav-height: 0rem;
         --header-search-height: 5rem;
         --footer-height: 4rem;
     }
+
     .hide-on-mobile {
         display: none !important;
     }
+
     .header-search__text {
         padding: 10px 0 10px 5px;
     }
+
     .row {
         margin-left: 0;
         margin-right: 0;
     }
+
     .search__cart-icon--acount {
         display: block;
     }
+
     .header-search__history {
         position: fixed;
         left: 0;
         right: 0;
     }
+
+    .show-on-mobile {
+        display: block !important;
+        ;
+    }
+
 }

@@ -19,32 +19,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "SearchInput",
+};
 </script>
 
 <style lang="css" scoped>
-.header__search {
-  display: flex;
-  align-items: center;
-  height: var(--header-search-height);
-}
-
-.search__logo {
-  width: 120px;
-  margin: auto;
-  padding-right: 1rem;
-}
-
-.search__logo-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.header-search__text {
-  flex: 1;
-  position: relative;
-}
-
 .header-search__text-input {
   width: 100%;
   padding: 10px;
