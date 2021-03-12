@@ -4,15 +4,21 @@
       type="text"
       class="header-search__text-input"
       placeholder="Tìm sản phẩm"
+      maxlength="150"
+      v-model="key"
+      v-on:keyup.enter="search"
     />
     <div class="header-search__history">
       <span class="header-search__history-text">Lịch sử tìm kiếm</span>
       <ul class="header-search__history-list-item">
-        <li class="header-search__history-item">Abc</li>
-        <li class="header-search__history-item">YAdd</li>
-        <li class="header-search__history-item">AAA</li>
-        <li class="header-search__history-item">AAAA</li>
-        <li class="header-search__history-item">AAAA</li>
+        <li
+          v-for="(item, index) in searchHistory"
+          v-bind:key="index"
+          class="header-search__history-item"
+          v-on:click="onSelect(item)"
+        >
+          {{ item }}
+        </li>
       </ul>
     </div>
   </div>
@@ -21,6 +27,45 @@
 <script>
 export default {
   name: "SearchInput",
+  data() {
+    return { searchHistory: [], key: "" };
+  },
+  created() {
+    const history = localStorage.getItem("IYW_SEARCH");
+    if (history) {
+      this.searchHistory = history.split(",");
+    }
+  },
+  methods: {
+    search: function () {
+      let textSearch = this.key.trim();
+      if (textSearch === "") {
+        return;
+      }
+      if (this.searchHistory.filter((x) => x === textSearch).length > 0) {
+        this.searchHistory.splice(
+          this.searchHistory.findIndex((x) => x === textSearch),
+          1
+        );
+      }
+      if (this.searchHistory.length > 9) {
+        this.searchHistory.length = 9;
+      }
+      this.searchHistory.unshift(textSearch);
+      localStorage.setItem("IYW_SEARCH", this.searchHistory);
+      this.$router.push({ name: "SearchResults" });
+    },
+    onSelect(text) {
+      alert(text);
+      this.searchHistory.splice(
+        this.searchHistory.findIndex((x) => x === text),
+        1
+      );
+      this.searchHistory.unshift(text);
+      localStorage.setItem("IYW_SEARCH", this.searchHistory);
+      this.$router.push({ name: "SearchResults" });
+    },
+  },
 };
 </script>
 
@@ -67,6 +112,9 @@ export default {
   padding-top: 2px;
   cursor: pointer;
   padding-left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .header-search__history-item:hover {

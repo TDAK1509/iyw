@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Detail from "../components/Detail.vue";
 import Home from "../components/Home.vue";
+import SearchResults from "../components/SearchResults.vue";
 import NotFound from "../components/NotFound.vue";
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
         path: "/detail/:slug",
         name: "Detail",
         component: Detail,
+    },
+    {
+        path: "/search",
+        name: "SearchResults",
+        component: SearchResults,
     },
     {
         path: "/:catchAll(.*)",
