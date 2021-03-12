@@ -14,16 +14,16 @@ export default {
     return { number: 1 };
   },
   methods: {
-    onChange() {},
     onUp() {
       if (this.number < this.max) {
         this.number++;
       }
+      this.$emit("change", this.number);
     },
     onDown() {
       if (this.number > 1) {
         this.number--;
-        this.$emit("changeNuber", this.number);
+        this.$emit("change", this.number);
       }
     },
   },

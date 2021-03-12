@@ -102,16 +102,22 @@
 export default {
   name: "CartIcon",
   created() {
-    let local = localStorage.getItem("IYW_ORDER");
-    if (isNaN(local)) {
-      local = 0;
+    let orders = localStorage.getItem("IYW_ORDER");
+    if (orders) {
+      orders = JSON.parse(orders);
+      this.$store.commit("SET_ORDER", orders);
     }
-    this.$store.commit("SET_ORDER", local);
-    localStorage.setItem("IYW_SEARCH", local);
   },
   computed: {
     count() {
-      return this.$store.state.count;
+      let count = 0;
+      const orders = this.$store.state.orders;
+      if (orders.length > 0) {
+        for (let i = 0; i < orders.length; i++) {
+          count += orders[i].number;
+        }
+      }
+      return count;
     },
   },
 };
