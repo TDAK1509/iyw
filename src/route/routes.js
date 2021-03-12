@@ -16,7 +16,12 @@ const routes = [
         component: Detail,
     },
     {
-        path: "/search",
+        path: "/search/",
+        name: "SearchResults",
+        component: SearchResults,
+    },
+    {
+        path: "/search/:catchAll(.*)",
         name: "SearchResults",
         component: SearchResults,
     },

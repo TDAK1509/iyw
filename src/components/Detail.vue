@@ -28,8 +28,9 @@
           <div class="description">
             {{ product.description }}
           </div>
-          <SelectNumber></SelectNumber>
-          <button class="btn add-cart">Thêm vào giỏ</button>
+          <SelectNumber :max="6" v-on:change="setNumber" />
+          <Size />
+          <button class="btn add-cart" v-on:click="add">Thêm vào giỏ</button>
         </div>
       </div>
     </div>
@@ -61,12 +62,14 @@
 <script>
 import { get } from "../base/api";
 import SelectNumber from "./SelectNumber";
+import Size from "./Size";
 export default {
   name: "Detail",
-  components: { SelectNumber },
+  components: { SelectNumber, Size },
   data() {
     return {
       product: null,
+      number: 1,
     };
   },
   created() {
@@ -74,6 +77,14 @@ export default {
     get(`products/${slug}`).then((data) => {
       this.product = data[0];
     });
+  },
+  methods: {
+    add() {
+      this.$store.commit("ADD_ORDER", { ...this.product, number: this.number });
+    },
+    setNumber(newNumber) {
+      this.number = newNumber;
+    },
   },
 };
 </script>

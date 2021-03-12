@@ -28,7 +28,7 @@
 export default {
   name: "SearchInput",
   data() {
-    return { searchHistory: [], key: "" };
+    return { searchHistory: [], key: "", isHide: false };
   },
   created() {
     const history = localStorage.getItem("IYW_SEARCH");
@@ -53,17 +53,17 @@ export default {
       }
       this.searchHistory.unshift(textSearch);
       localStorage.setItem("IYW_SEARCH", this.searchHistory);
-      this.$router.push({ name: "SearchResults" });
+      this.$router.push({ path: `/search/${this.key}` });
     },
     onSelect(text) {
-      alert(text);
       this.searchHistory.splice(
         this.searchHistory.findIndex((x) => x === text),
         1
       );
       this.searchHistory.unshift(text);
       localStorage.setItem("IYW_SEARCH", this.searchHistory);
-      this.$router.push({ name: "SearchResults" });
+      this.isHide = true;
+      this.$router.push({ path: `/search/${text}` });
     },
   },
 };
@@ -82,6 +82,7 @@ export default {
   outline: none;
 }
 
+.header-search__history:hover,
 .header-search__text-input:focus ~ div {
   display: block;
 }

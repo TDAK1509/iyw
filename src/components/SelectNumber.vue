@@ -1,23 +1,31 @@
 <template>
   <div class="select-number">
-    <div
-      class="change-number change-number--change"
-      v-on:click="number > 1 ? number-- : (number = 1)"
-    >
-      -
-    </div>
+    <div class="change-number change-number--change" v-on:click="onDown">-</div>
     <span class="change-number">{{ number }}</span>
-    <div class="change-number change-number--change" v-on:click="number++">
-      +
-    </div>
+    <div class="change-number change-number--change" v-on:click="onUp">+</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "SelectNumber",
+  props: ["max"],
   data() {
     return { number: 1 };
+  },
+  methods: {
+    onChange() {},
+    onUp() {
+      if (this.number < this.max) {
+        this.number++;
+      }
+    },
+    onDown() {
+      if (this.number > 1) {
+        this.number--;
+        this.$emit("changeNuber", this.number);
+      }
+    },
   },
 };
 </script>
