@@ -1,9 +1,9 @@
 <template>
-  <div class="pruduct-detail__size">
-    <div class="change-number change-number--change">S</div>
-    <div class="change-number change-number--change">M</div>
-    <div class="change-number change-number--change">L</div>
-    <div class="change-number change-number--change">XL</div>
+  <div class="select-size">
+    <div class="value">S</div>
+    <div class="value">M</div>
+    <div class="value">L</div>
+    <div class="value">XL</div>
   </div>
 </template>
 
@@ -14,27 +14,25 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.pruduct-detail__size {
+.select-size {
   display: flex;
+  width: auto;
 }
-.select-number {
-  display: flex;
-  margin: 10px 0;
-}
-
-.change-number {
-  height: 40px;
-  width: 40px;
+.value {
+  height: 30px;
+  width: 30px;
   border: 1px solid gray;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  font-size: 2rem;
-  margin-right: 10px;
-}
-
-.change-number--change {
+  margin-right: 5px;
   cursor: pointer;
+}
+@media (max-width: 739px) {
+  .value {
+    height: 20px;
+    width: 20px;
+  }
 }
 </style>

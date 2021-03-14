@@ -1,8 +1,8 @@
 <template>
   <div class="select-number">
-    <div class="change-number change-number--change" v-on:click="onDown">-</div>
-    <span class="change-number">{{ number }}</span>
-    <div class="change-number change-number--change" v-on:click="onUp">+</div>
+    <div class="change change--down" v-on:click="onDown">-</div>
+    <div class="value">{{ number }}</div>
+    <div class="change change--up" v-on:click="onUp">+</div>
   </div>
 </template>
 
@@ -33,22 +33,41 @@ export default {
 <style lang="css" scoped>
 .select-number {
   display: flex;
-  margin: 10px 0;
-}
-
-.change-number {
-  height: 40px;
-  width: 40px;
   border: 1px solid gray;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  font-size: 2rem;
-  margin-right: 10px;
+  font-size: 1.6rem;
+  width: 90px;
 }
 
-.change-number--change {
+.change {
+  height: 30px;
+  width: 30px;
+  padding: auto;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.value {
+  height: 30px;
+  width: 30px;
+  padding: auto;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 739px) {
+  .value,
+  .change {
+    height: 20px;
+    widows: 20px;
+  }
+  .select-number {
+    width: 60px;
+  }
 }
 </style>

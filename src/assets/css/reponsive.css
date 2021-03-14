@@ -1,6 +1,10 @@
 /* PC */
 
-@media (min-width: 1204px) {}
+@media (min-width: 1204px) {
+    .hide-on-pc {
+        display: none !important;
+    }
+}
 
 
 /* Tablet */
@@ -71,7 +75,6 @@
 
     .show-on-mobile {
         display: block !important;
-        ;
     }
 
 }

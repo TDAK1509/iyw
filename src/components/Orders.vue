@@ -1,51 +1,42 @@
 <template>
   <div>
-    <div class="cart-list">
-      <div class="cart-item">
-        <div class="row">
-          <div class="col l-3 m-12 c-12 dpfl">
-            <div class="cart-tem__select">
-              <input class="cart-tem__checkbox" type="checkbox" />
+    <div v-for="(item, index) in orders" :key="index" class="row order-item">
+      <div class="orders__item col l-6 m-12 c-12">
+        <input type="checkbox" />
+        <img v-bind:src="item.images[0]" alt="Hình sản phẩm" />
+        <div class="name-infor">
+          <span>{{ item.name }}</span>
+          <div class="show-on-mobile hide-on-pc show-on-tablet">
+            <div class="orders__infor col l-6 m-6 c-12">
+              <div>{{ item.price.toLocaleString() }}</div>
+              <Size />
+              <SelectNumber max="10" />
+              <span class="orders__action">Xóa</span>
             </div>
-            <div class="cart-tem__image">
-              <img
-                src="https://picsum.photos/80"
-                alt="Hình sản phẩm"
-                class="card__img"
-              />
-            </div>
-            <div class="cart-tem__name">
-              <span>Túi xách nữ LEMINO LE2220442</span>
-            </div>
-          </div>
-          <div class="col l-3 m-12 c-12">
-            <div class="cart-tem__type">Size: <Size /></div>
-          </div>
-          <div class="col l-3 m-12 c-12">
-            <div class="cart-tem__price">
-              <div class="cart-tem__price--now">950.000</div>
-            </div>
-            <div class="cart-tem__count">
-              <div class="pruduct-detail__select-number">
-                <SelectNumber />
-              </div>
-            </div>
-            <div class="cart-tem__sum">950.000</div>
-          </div>
-          <div class="col l-3 m-12 c-12">
-            <div class="cart-tem__action">Xóa</div>
           </div>
         </div>
       </div>
+      <div class="hide-on-mobile hide-on-tablet orders__infor col l-6 m-6 c-12">
+        <div class="col l-3 m-3">
+          <Size />
+        </div>
+        <div class="col l-3 m-3">950.000</div>
+        <div class="col l-3 m-3">
+          <SelectNumber max="10" />
+        </div>
+        <div class="col l-3 m-3">
+          <span class="orders__action">Xóa</span>
+        </div>
+      </div>
     </div>
-    <div class="cart-list__summary">
-      <div class="cart-list__infor">
-        <div class="cart-list__infor-label">Tổng số tiền (3 sản phẩm):</div>
-        <div class="cart-list__infor-sum-money">999.000</div>
-      </div>
-      <div class="cart-list__action">
-        <button class="btn">Mua hàng</button>
-      </div>
+  </div>
+  <div class="cart-list__summary">
+    <div class="cart-list__infor">
+      <div class="cart-list__infor-label">Tổng số tiền (3 sản phẩm):</div>
+      <div class="cart-list__infor-sum-money">999.000</div>
+    </div>
+    <div class="cart-list__action">
+      <button class="btn">Mua hàng</button>
     </div>
   </div>
 </template>
@@ -55,55 +46,55 @@ import SelectNumber from "./SelectNumber";
 import Size from "./Size";
 export default {
   name: "Orders",
+  created() {
+    let orders = localStorage.getItem("IYW_ORDER");
+    if (orders) {
+      orders = JSON.parse(orders);
+      this.orders = orders;
+      this.$store.commit("SET_ORDER", orders);
+    }
+  },
+  data() {
+    return { orders: [] };
+  },
   components: { SelectNumber, Size },
 };
 </script>
 
 <style lang="css" scoped>
-.cart-list {
+.order-item {
+  margin-bottom: 5px;
 }
-
-.cart-item {
-  margin-bottom: 1rem;
-}
-
-.cart-tem__select,
-.cart-tem__action {
-  width: 50px;
+.orders__item {
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+.name-infor > span,
+.orders__item > input[type="checkbox"] {
+  margin: 5px;
   font-size: 1.6rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.orders__item > img {
+  height: 80px;
+  width: 80px;
 }
 
-.cart-tem__checkbox {
+.orders__infor {
+  display: flex;
 }
 
-.cart-tem__name {
-  padding-left: 10px;
-  flex: 1;
-  font-size: 1.8rem;
-}
-
-.cart-tem__type,
-.cart-tem__price,
-.cart-tem__count,
-.cart-tem__sum {
+.l-3,
+.m-3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
-.cart-tem__price--orign {
-  color: gray;
-  text-decoration: line-through;
-  padding-right: 1rem;
-}
-
-.cart-tem__action {
+.orders__action {
   color: red;
   cursor: pointer;
 }
@@ -135,6 +126,34 @@ export default {
 @media (max-width: 739px) {
   .card__img {
     height: 100px;
+    width: 100px;
+  }
+  .orders__infor {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-around;
+  }
+  .orders__item > img {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+  .card__img {
+    height: 100px;
+    width: 100px;
+  }
+  .orders__infor {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-around;
+  }
+  .orders__item > img {
+    height: 100px;
+    width: 100px;
   }
 }
 </style>
