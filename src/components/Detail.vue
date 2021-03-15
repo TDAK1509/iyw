@@ -28,8 +28,17 @@
           <div class="description">
             {{ product.description }}
           </div>
-          <SelectNumber :max="6" v-on:change="setNumber" />
-          <Size />
+          <SelectNumber
+            :max="max"
+            :value="number"
+            v-on:change="setNumber"
+            class="select-number"
+          />
+          <Size
+            :sizes="product.sizes"
+            v-on:change="setSize"
+            :selectedSize="size"
+          />
           <button class="btn add-cart" v-on:click="add">Thêm vào giỏ</button>
         </div>
       </div>
@@ -70,6 +79,8 @@ export default {
     return {
       product: null,
       number: 1,
+      max: 1,
+      size: "",
     };
   },
   created() {
@@ -80,10 +91,23 @@ export default {
   },
   methods: {
     add() {
-      this.$store.commit("ADD_ORDER", { ...this.product, number: this.number });
+      this.$store.commit("ADD_ORDER", {
+        ...this.product,
+        number: this.number,
+        size: this.size,
+      });
     },
     setNumber(newNumber) {
       this.number = newNumber;
+    },
+    setSize(newSize) {
+      if (this.size != newSize) {
+        this.size = newSize;
+        this.number = 1;
+        let max = this.product.sizes.filter((x) => x.size === newSize)[0]
+          .number;
+        this.max = max;
+      }
     },
   },
 };
@@ -137,6 +161,10 @@ export default {
 .add-cart {
   margin-top: 2rem;
   font-size: 2rem;
+}
+
+.select-number {
+  margin: 10px 0;
 }
 
 /* Modal */

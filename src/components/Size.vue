@@ -1,15 +1,30 @@
 <template>
   <div class="select-size">
-    <div class="value">S</div>
-    <div class="value">M</div>
-    <div class="value">L</div>
-    <div class="value">XL</div>
+    <div
+      class="value"
+      @click="selectSize(item.size)"
+      v-for="item in sizes"
+      :key="item._id"
+    >
+      {{ item.size }}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Size",
+  props: ["sizes"],
+  data() {
+    return {
+      selectedSize: null,
+    };
+  },
+  methods: {
+    selectSize(size) {
+      this.$emit("change", size);
+    },
+  },
 };
 </script>
 

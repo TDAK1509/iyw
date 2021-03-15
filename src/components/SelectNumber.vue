@@ -9,7 +9,7 @@
 <script>
 export default {
   name: "SelectNumber",
-  props: ["max"],
+  props: ["max", "value"],
   data() {
     return { number: 1 };
   },
@@ -24,6 +24,14 @@ export default {
       if (this.number > 1) {
         this.number--;
         this.$emit("change", this.number);
+      }
+    },
+  },
+  watch: {
+    value: function (old, newVal) {
+      console.log("AAA");
+      if (newVal != old) {
+        this.number = newVal;
       }
     },
   },
