@@ -1,6 +1,7 @@
 <template>
   <div class="select-size">
     <div
+      :class="{ selected: isSelected(item.size) }"
       class="value"
       @click="selectSize(item.size)"
       v-for="item in sizes"
@@ -17,12 +18,16 @@ export default {
   props: ["sizes"],
   data() {
     return {
-      selectedSize: null,
+      size: null,
     };
   },
   methods: {
     selectSize(size) {
+      this.size = size;
       this.$emit("change", size);
+    },
+    isSelected(size) {
+      return this.size === size;
     },
   },
 };
@@ -43,6 +48,9 @@ export default {
   border-radius: 5px;
   margin-right: 5px;
   cursor: pointer;
+}
+.selected {
+  background-color: var(--primary-color);
 }
 @media (max-width: 739px) {
   .value {

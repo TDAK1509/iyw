@@ -6,9 +6,9 @@ const store = createStore({
   },
   mutations: {
     ADD_ORDER(state, payload) {
-      let index = state.orders.findIndex(x => x._id === payload._id);
+      let index = state.orders.findIndex(x => x._id === payload._id && x.orderSize === payload.orderSize);
       if (index > -1) {
-        state.orders[index].number = payload.number + state.orders[index].number;
+        state.orders[index].orderNumber = payload.orderNumber + state.orders[index].orderNumber;
       } else {
         state.orders.push(payload);
       }

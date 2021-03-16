@@ -1,17 +1,20 @@
 <template>
-  <div class="select-number">
-    <div class="change change--down" v-on:click="onDown">-</div>
-    <div class="value">{{ number }}</div>
-    <div class="change change--up" v-on:click="onUp">+</div>
+  <div class="number-area" :class="{ numberBelow: showNumberBelow }">
+    <div class="select-number">
+      <div class="change change--down" v-on:click="onDown">-</div>
+      <div class="value">{{ number }}</div>
+      <div class="change change--up" v-on:click="onUp">+</div>
+    </div>
+    <span>Còn {{ max }} sản phẩm</span>
   </div>
 </template>
 
 <script>
 export default {
   name: "SelectNumber",
-  props: ["max", "value"],
-  data() {
-    return { number: 1 };
+  props: { max: Number, value: Number, showNumberBelow: Boolean },
+  created() {
+    this.number = this.value;
   },
   methods: {
     onUp() {
@@ -29,9 +32,8 @@ export default {
   },
   watch: {
     value: function (old, newVal) {
-      console.log("AAA");
       if (newVal != old) {
-        this.number = newVal;
+        this.number = old;
       }
     },
   },
@@ -39,6 +41,15 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.number-area {
+  display: flex;
+  border: none;
+  align-items: center;
+}
+.number-area > span {
+  margin-left: 5px;
+  font-size: 1.5rem;
+}
 .select-number {
   display: flex;
   border: 1px solid gray;
@@ -66,6 +77,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.numberBelow {
+  flex-direction: column;
+}
+.numberBelow > span {
+  margin-top: 5px;
 }
 
 @media (max-width: 739px) {

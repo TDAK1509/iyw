@@ -32,7 +32,7 @@
             :max="max"
             :value="number"
             v-on:change="setNumber"
-            class="select-number"
+            class="number-detail"
           />
           <Size
             :sizes="product.sizes"
@@ -91,23 +91,53 @@ export default {
   },
   methods: {
     add() {
+      if (this.isInvalideSize()) {
+        alert("Bạn chưa chọn size");
+        return;
+      }
+      if (!this.validateNumber()) {
+        alert(
+          "Số lượng chọn nhiều hơn số sản phẩm đang có, bạn kiểm tra lại giỏ hàng nhé"
+        );
+        return;
+      }
+
       this.$store.commit("ADD_ORDER", {
         ...this.product,
-        number: this.number,
-        size: this.size,
+        orderNumber: this.number,
+        orderSize: this.size,
+        checked: false,
       });
     },
     setNumber(newNumber) {
       this.number = newNumber;
     },
     setSize(newSize) {
-      if (this.size != newSize) {
+      if (this.size !== newSize) {
         this.size = newSize;
         this.number = 1;
         let max = this.product.sizes.filter((x) => x.size === newSize)[0]
           .number;
         this.max = max;
       }
+    },
+    isInvalideSize() {
+      return this.size === "";
+    },
+    validateNumber() {
+      let isValid = true;
+      const exitOrder = this.$store.state.orders.filter(
+        (x) => x.orderSize === this.size
+      )[0];
+      if (exitOrder) {
+        if (
+          exitOrder.orderNumber + this.number >
+          this.product.sizes.filter((x) => x.size === this.size)[0].number
+        ) {
+          isValid = false;
+        }
+      }
+      return isValid;
     },
   },
 };
@@ -163,7 +193,7 @@ export default {
   font-size: 2rem;
 }
 
-.select-number {
+.number-detail {
   margin: 10px 0;
 }
 
