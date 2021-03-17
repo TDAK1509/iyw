@@ -80,6 +80,7 @@ export default {
 }
 .numberBelow {
   flex-direction: column;
+  align-items: flex-start;
 }
 .numberBelow > span {
   margin-top: 5px;
