@@ -59,7 +59,7 @@
       <div class="cart-list__infor-sum-money">{{ sum.toLocaleString(0) }}</div>
     </div>
     <div class="cart-list__action">
-      <button class="btn">Mua hàng</button>
+      <button @click="onCheckout" class="btn">Mua hàng</button>
     </div>
   </div>
 </template>
@@ -78,6 +78,16 @@ export default {
     },
     updateStore() {
       this.$store.commit("SET_ORDER", this.orders);
+    },
+    onCheckout() {
+      if (!this.isChecked()) {
+        alert("Hãy chọn ít nhất một sản phẩm");
+        return;
+      }
+      this.$router.push({ path: "/checkout" });
+    },
+    isChecked() {
+      return this.orders.filter((x) => x.checked).length > 0;
     },
   },
   created() {

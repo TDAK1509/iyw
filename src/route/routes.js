@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Detail from "../components/Detail.vue";
 import Home from "../components/Home.vue";
 import Orders from "../components/Orders.vue";
+import Checkout from "../components/Checkout.vue";
 import SearchResults from "../components/SearchResults.vue";
 import NotFound from "../components/NotFound.vue";
 
@@ -17,12 +18,17 @@ const routes = [
         component: Orders,
     },
     {
+        path: "/checkout",
+        name: "Checkout",
+        component: Checkout,
+    },
+    {
         path: "/detail/:slug",
         name: "Detail",
         component: Detail,
     },
     {
-        path: "/search/",
+        path: "/search/:query",
         name: "SearchResults",
         component: SearchResults,
     },
