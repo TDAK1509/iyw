@@ -39,7 +39,7 @@
         <div class="col l-3 m-3">{{ item.price.toLocaleString() }}</div>
         <div class="col l-3 m-3">
           <SelectNumber
-            :max="item.number"
+            :max="getMaxOfNumber(item)"
             :value="item.orderNumber"
             :showNumberBelow="true"
             v-on:change="setNumber(index, $event)"
@@ -84,6 +84,9 @@ export default {
       this.orders[index].orderNumber = newNumber;
       this.$store.commit("SET_ORDER", this.orders);
     },
+    getMaxOfNumber(item) {
+      return item.sizes.filter((x) => x.size === item.orderSize)[0].number;
+    },
   },
   created() {
     let orders = localStorage.getItem("IYW_ORDER");
@@ -110,7 +113,7 @@ export default {
       let sum = 0;
       this.orders.forEach((order) => {
         if (order.checked) {
-          sum += order.price;
+          sum += order.price * order.orderNumber;
         }
       });
       return sum;
