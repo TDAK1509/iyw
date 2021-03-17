@@ -12,7 +12,9 @@
         <input type="checkbox" v-model="item.checked" />
         <img v-bind:src="item.images[0]" alt="Hình sản phẩm" />
         <div class="name-infor">
-          <span>{{ item.name }}</span>
+          <router-link v-bind:to="`/detail/${item.slug}`">{{
+            item.name
+          }}</router-link>
           <div class="show-on-mobile show-on-tablet hide-on-pc">
             <div class="orders__infor col l-6 c-6 c-12">
               <div class="orders__price-size">
@@ -63,7 +65,7 @@
       <div class="summary__infor-sum-money">{{ sum.toLocaleString(0) }}</div>
     </div>
     <div class="summary__action">
-      <button class="btn">Mua hàng</button>
+      <button class="btn" @click="onCheckout">Mua hàng</button>
     </div>
   </div>
 </template>
@@ -86,6 +88,13 @@ export default {
     },
     getMaxOfNumber(item) {
       return item.sizes.filter((x) => x.size === item.orderSize)[0].number;
+    },
+    onCheckout() {
+      if (this.orders.filter((x) => x.checked).length === 0) {
+        alert("Bạn chưa chọn sản phẩm để đặt hàng");
+        return;
+      }
+      this.$router.push({ path: `/Checkout` });
     },
   },
   created() {
@@ -134,7 +143,7 @@ export default {
 .name-infor {
   flex: 1;
 }
-.name-infor > span,
+.name-infor > a,
 .orders__item > input[type="checkbox"] {
   margin: 5px;
   font-size: 1.6rem;
