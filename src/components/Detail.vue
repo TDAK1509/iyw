@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="img-on-tablet-mobile">
+        <div class="hide-on-pc img-on-tablet-mobile">
           <img
             v-bind:src="product.images[currentImgIndex]"
             alt="product.name"
