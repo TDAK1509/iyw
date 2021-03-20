@@ -105,7 +105,7 @@ export default {
   created() {
     const slug = this.$route.params.slug;
     get(`products/${slug}`).then((data) => {
-      this.product = data[0];
+      this.product = data.data[0];
     });
   },
   methods: {
