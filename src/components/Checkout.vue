@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isSuccess">
+  <form v-on:submit.prevent="checkout" v-if="!isSuccess">
     <div v-if="ordersInfor.length === 0" class="no-order">
       <img
         alt="Cart"
@@ -52,15 +52,35 @@
     <div v-if="ordersInfor && ordersInfor.length > 0" class="user-infor">
       <div class="group">
         <h4 class="title">Tên của bạn</h4>
-        <input type="text" class="text" v-model="name" />
+        <input
+          type="text"
+          class="text"
+          maxlength="50"
+          minlength="2"
+          v-model="name"
+          required
+        />
       </div>
       <div class="group">
         <h4 class="title">Số điện thoại</h4>
-        <input type="tel" v-model="phone" class="text" />
+        <input
+          type="text"
+          v-model="phone"
+          class="text"
+          maxlength="11"
+          pattern="^(0|84|\+84)\d{9,10}$"
+          required
+        />
       </div>
       <div class="group">
         <h4 class="title">Địa chỉ</h4>
-        <textarea class="text" v-model="address"></textarea>
+        <textarea
+          class="text"
+          v-model="address"
+          maxlength="200"
+          minlength="10"
+          required
+        ></textarea>
       </div>
       <div class="group">
         <h4 class="title">Ghi chú</h4>
@@ -70,11 +90,11 @@
     <button
       v-if="ordersInfor && ordersInfor.length > 0"
       class="btn btn-action"
-      @click="checkout"
+      type="submit"
     >
       Đặt hàng
     </button>
-  </div>
+  </form>
   <div v-else class="success">
     <img
       id="icon-success"
@@ -82,14 +102,11 @@
       src="https://alfredomedia.com/wp-content/uploads/2018/01/ok.png"
     />
     <h3>Đơn hàng đã được đặt thành công, mình sẽ liên hệ bạn xác nhận nhé</h3>
-    <img
-      alt="Thank you"
-      src="https://lh3.googleusercontent.com/proxy/jX0_XXcHoXcM7wBXZVnamU0KnnYraghF12tsMIk5TQHIE56e-9wSUFXU8MaGUot83_1GJcPWX3Ry8oPltvdHI7Vjce8VgYhlp60BgSG3iVJsCbll"
-    />
   </div>
 </template>
 
 <script>
+import { post } from "../base/api";
 export default {
   name: "Checkout",
   created() {
@@ -134,8 +151,53 @@ export default {
         alert("Vui lòng nhập đầy đủ thông tin");
         return;
       }
-      // Submit orders
-      this.isSuccess = true;
+      const deliverInfor = {
+        name: this.name,
+        phone: this.phone,
+        address: this.address,
+        note: this.note,
+      };
+      let orderInfor = [];
+      this.ordersInfor.forEach((item) => {
+        orderInfor.push({
+          id: item._id,
+          slug: item.slug,
+          name: item.name,
+          price: item.price,
+          number: item.orderNumber,
+          size: item.orderSize,
+        });
+      });
+      const orderObject = {
+        total: this.sum,
+        count: this.count,
+        deliverInfor,
+        orderInfor,
+      };
+      post("orders", orderObject).then((data) => {
+        this.updateStore();
+        this.udateOrderedIte(data.data);
+        this.isSuccess = true;
+      });
+    },
+    updateStore() {
+      const newOrders = this.$store.state.orders;
+      newOrders.forEach((item, index) => {
+        if (item.checked) {
+          newOrders.splice(index, 1);
+        }
+      });
+      this.$store.commit("SET_ORDER", newOrders);
+    },
+    udateOrderedIte(data) {
+      let ordered = JSON.parse(localStorage.getItem("IYW_ORDERED"));
+      if (ordered && Array.isArray(ordered)) {
+        ordered.push(data);
+      } else {
+        ordered = [data];
+      }
+      localStorage.setItem("IYW_ORDERED", JSON.stringify(ordered));
+      console.log(JSON.parse(localStorage.getItem("IYW_ORDERED")));
     },
     validate() {
       return (

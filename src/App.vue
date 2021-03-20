@@ -42,6 +42,6 @@ export default {
 .container {
   background-color: var(--background-color);
   margin-top: calc(var(--header-search-height) + 20px);
-  margin-bottom: 2rem;
+  margin-bottom: var(--footer-height);
 }
 </style>

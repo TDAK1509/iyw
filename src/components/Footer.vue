@@ -16,6 +16,10 @@ export default {
 /* Footer */
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: var(--footer-height);
   background-color: var(--primary-color);
   display: flex;

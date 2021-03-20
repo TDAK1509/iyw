@@ -146,7 +146,6 @@ export default {
   },
   watch: {
     "$store.state.orders": function () {
-      console.log("AAA");
       this.orders = this.$store.state.orders;
     },
   },
