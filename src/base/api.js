@@ -8,7 +8,7 @@ export function get(url, params = {}) {
                 if (data.status != 'success') {
                     throw Error(data.message);
                 }
-                resolve(data.data);
+                resolve(data);
             }).catch(err => {
                 alert(err);
                 reject();

@@ -28,7 +28,7 @@ const routes = [
         component: Detail,
     },
     {
-        path: "/search/:query",
+        path: "/search",
         name: "SearchResults",
         component: SearchResults,
     },

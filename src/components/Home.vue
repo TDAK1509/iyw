@@ -13,7 +13,7 @@ export default {
   components: { Card },
   created() {
     get("products").then((data) => {
-      this.products = data;
+      this.products = data.data;
     });
   },
   data() {
