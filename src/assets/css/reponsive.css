@@ -24,7 +24,7 @@
         display: none !important;
     }
 
-    .search__cart-icon--acount {
+    .cart-icon--acount {
         display: block;
     }
 
@@ -63,7 +63,7 @@
         margin-right: 0;
     }
 
-    .search__cart-icon--acount {
+    .cart-icon--acount {
         display: block;
     }
 

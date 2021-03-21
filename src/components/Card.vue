@@ -47,9 +47,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-.card__price {
-}
-
 .card__price-orign {
   text-decoration: line-through;
   opacity: 0.5;

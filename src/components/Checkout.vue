@@ -275,6 +275,7 @@ export default {
 .card__img {
   height: 150px;
 }
+
 @media (max-width: 739px) {
   .card__img {
     height: 100px;
